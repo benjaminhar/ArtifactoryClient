@@ -22,15 +22,15 @@ import home.assignment.jfrog.arifactory.rest.client.domain.Result;
 public class ArtifactoryClient 
 {
 	private static Logger logger = Logger.getLogger(ArtifactoryClient.class.getSimpleName());
-	private final String USER_PASS_DECODED = "admin:Zw6c1QdHxHsJ";
-	private final String HOST = "35.225.53.253";
-	private final String ARTIFACTORY_SEARCH_AQL = "http://" + HOST + "/artifactory/api/search/aql";
+	private final static String USER_PASS_DECODED = "admin:Zw6c1QdHxHsJ";
+	private final static String HOST = "35.225.53.253";
+	private final static String ARTIFACTORY_SEARCH_AQL = "http://" + HOST + "/artifactory/api/search/aql";
+	private final static String REPOSITORY_NAME = "jcenter-cache";
 
 	public static void main( String[] args ) throws JsonParseException, JsonMappingException, IOException, InterruptedException
 	{
 		ArtifactoryClient client = new ArtifactoryClient();
-		String repositoryName = "jcenter-cache";
-		ApiResponse response = client.api(repositoryName);
+		ApiResponse response = client.api(REPOSITORY_NAME);
 
 		if (response != null) {
 			logger.info(response.toString());
