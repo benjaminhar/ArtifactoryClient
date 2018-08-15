@@ -1,12 +1,12 @@
 package home.assignment.jfrog.arifactory.rest.client.domain;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List;	
 
 public class ApiResponse implements IResponse {
 
 	private List<Record> records;
-
+		
 	public ApiResponse() {
 		super();
 		records = new ArrayList<Record>();
@@ -19,10 +19,9 @@ public class ApiResponse implements IResponse {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		String result = "API Response: \n";
 		for(Record record : records) {
-			result = result + "Artifact Name := " + record.getArtifactName() + "\n"
+			result += "Artifact Name := " + record.getArtifactName() + "\n"
 					+ "Downloads Count := " + record.getDownloadsCount() + "\n\n";
 		}
 		return result;

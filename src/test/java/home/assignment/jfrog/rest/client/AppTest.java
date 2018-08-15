@@ -1,4 +1,4 @@
-package home.assignment.jfrog.rest_client;
+package home.assignment.jfrog.rest.client;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
