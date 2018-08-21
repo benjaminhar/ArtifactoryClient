@@ -8,9 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-//@Configuration
-//@EnableAutoConfiguration  
-//@ComponentScan(basePackages = "com.ben.example")
 public class Application extends SpringBootServletInitializer {
 
     private static final Class<Application> applicationClass = Application.class;

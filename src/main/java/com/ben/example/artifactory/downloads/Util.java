@@ -83,7 +83,7 @@ public class Util {
 	 * @return string in json format to represent the input artifact in the
 	 *         query
 	 */
-	public static String generateQueryPartForArtifact(final String artifactName, final String artifactPath, int index,
+	public static String generateQuerySegmentForArtifact(final String artifactName, final String artifactPath, int index,
 			int pagingLimit) {
 		String queryPartTemplate = "{   \"$and\":[   {\"name\":{\"$eq\":\"" + artifactName + "\"}},"
 				+ "   {\"path\":{\"$eq\":\"" + artifactPath + "\"}} ] },";
@@ -156,7 +156,7 @@ public class Util {
 			for (Result result : results) {
 				String artifactName = result.getName();
 				String artifactPath = result.getPath();
-				String queryFromArtifact = Util.generateQueryPartForArtifact(artifactName, artifactPath, resultIndex,
+				String queryFromArtifact = Util.generateQuerySegmentForArtifact(artifactName, artifactPath, resultIndex,
 						limit);
 				queryArtifactList.append(queryFromArtifact);
 				resultIndex++;

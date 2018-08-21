@@ -24,7 +24,7 @@ public class UtilTest extends TestCase {
                 "   {\"path\":{\"$eq\":\"" + artifactPath + "\"}} ] },"; 
     	String expectedCaseUpperLimit = "{   \"$and\":[   {\"name\":{\"$eq\":\"" + artifactName +"\"}}," +
                 "   {\"path\":{\"$eq\":\"" + artifactPath + "\"}} ] }"; 
-    	assertEquals(expectedCaseNormal, Util.generateQueryPartForArtifact(artifactName, artifactPath, index1, pageSizeLimit));
-    	assertEquals(expectedCaseUpperLimit, Util.generateQueryPartForArtifact(artifactName, artifactPath, index2, pageSizeLimit));
+    	assertEquals(expectedCaseNormal, Util.generateQuerySegmentForArtifact(artifactName, artifactPath, index1, pageSizeLimit));
+    	assertEquals(expectedCaseUpperLimit, Util.generateQuerySegmentForArtifact(artifactName, artifactPath, index2, pageSizeLimit));
     }
 }
