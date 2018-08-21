@@ -1,4 +1,4 @@
-package home.assignment.jfrog.arifactory.rest.client.domain;
+package com.ben.example.artifactory.downloads.domain;
 
 
 import java.util.HashMap;

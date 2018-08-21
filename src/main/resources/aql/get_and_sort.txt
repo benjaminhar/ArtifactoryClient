@@ -4,5 +4,5 @@ items.find(
 	"name":{"$match":"*.jar"}
 	}
 ).include("stat.downloads")
-.sort({"$desc" : ["stat.downloads"]})
-.limit(2)
+.sort({"$desc":["stat.downloads"]})
+.limit(LIMIT)

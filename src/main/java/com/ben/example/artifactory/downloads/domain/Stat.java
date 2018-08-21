@@ -1,7 +1,6 @@
-package home.assignment.jfrog.arifactory.rest.client.domain;
+package com.ben.example.artifactory.downloads.domain;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -12,36 +11,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-	"results",
-	"range"
+	"downloads"
 })
-public class AQLResult {
+public class Stat {
 
-	@JsonProperty("results")
-	private List<Result> results = null;
-	@JsonProperty("range")
-	private Range range;
+	@JsonProperty("downloads")
+	private Long downloads;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	@JsonProperty("results")
-	public List<Result> getResults() {
-		return results;
+	@JsonProperty("downloads")
+	public Long getDownloads() {
+		return downloads;
 	}
 
-	@JsonProperty("results")
-	public void setResults(List<Result> results) {
-		this.results = results;
-	}
-
-	@JsonProperty("range")
-	public Range getRange() {
-		return range;
-	}
-
-	@JsonProperty("range")
-	public void setRange(Range range) {
-		this.range = range;
+	@JsonProperty("downloads")
+	public void setDownloads(Long downloads) {
+		this.downloads = downloads;
 	}
 
 	@JsonAnyGetter

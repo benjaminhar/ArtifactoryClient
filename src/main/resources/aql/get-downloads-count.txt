@@ -1,0 +1,6 @@
+items.find(
+    {
+        "$or":[
+            ARTIFACTLIST
+          ]
+}).include("name","path","stat.downloads")

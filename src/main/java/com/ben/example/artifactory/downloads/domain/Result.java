@@ -1,7 +1,10 @@
-package home.assignment.jfrog.arifactory.rest.client.domain;
+package com.ben.example.artifactory.downloads.domain;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.ben.example.artifactory.downloads.domain.Stat;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -9,25 +12,39 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-	"downloads"
+	"path",
+	"name"
 })
-public class Stat {
+public class Result {
 
-	@JsonProperty("downloads")
-	private Long downloads;
+	@JsonProperty("path")
+	private String path;
+	@JsonProperty("name")
+	private String name;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	@JsonProperty("downloads")
-	public Long getDownloads() {
-		return downloads;
+	@JsonProperty("path")
+	public String getPath() {
+		return path;
 	}
 
-	@JsonProperty("downloads")
-	public void setDownloads(Long downloads) {
-		this.downloads = downloads;
+	@JsonProperty("path")
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	@JsonProperty("name")
+	public String getName() {
+		return name;
+	}
+
+	@JsonProperty("name")
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@JsonAnyGetter

@@ -1,0 +1,15 @@
+{
+	"targetHost":"35.202.171.89",
+	
+	"targetPort":"8080",
+	
+	"targetRepo":"jcenter-cache",
+	
+	"user":"admin",
+	
+	"token":"PtRkbga1O3",
+	
+	"paginationLimit":"1000",
+	
+	"searchPath":"/artifactory/api/search/aql"
+}

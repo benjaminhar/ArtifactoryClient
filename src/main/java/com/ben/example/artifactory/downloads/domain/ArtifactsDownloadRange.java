@@ -1,4 +1,4 @@
-package home.assignment.jfrog.arifactory.rest.client.domain;
+package com.ben.example.artifactory.downloads.domain;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 "end_pos",
 "total"
 })
-public class Range {
+public class ArtifactsDownloadRange {
 
 @JsonProperty("start_pos")
 private Integer startPos;

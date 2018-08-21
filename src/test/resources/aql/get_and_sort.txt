@@ -5,4 +5,4 @@ items.find(
 	}
 ).include("stat.downloads")
 .sort({"$desc" : ["stat.downloads"]})
-.limit(2)
+.limit(LIMIT)
