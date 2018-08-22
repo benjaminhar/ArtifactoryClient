@@ -41,10 +41,10 @@ public class DownloadsCountController {
 			@Positive @RequestParam(value = "limit", defaultValue = "1000") Integer limit)
 			throws FileNotFoundException {
 
-		String endpoint = "http://" + targetHost + ":" + Util.readAppConfig().getTargetPort() + Util.readAppConfig().getPath();
+		String endpoint = "http://" + targetHost + Util.readAppConfig().getPath();
 		
 		if (limit <=0 || limit > Integer.MAX_VALUE || !Util.validateIPAddress(targetHost)) 
-			return new ResponseEntity<>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		ResponseEntity<List<Record>> response = Util.getMostDownloadedArtifacts(endpoint, mavenRepositoryName, limit);
 

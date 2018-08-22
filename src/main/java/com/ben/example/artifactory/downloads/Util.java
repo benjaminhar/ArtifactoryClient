@@ -42,8 +42,6 @@ public class Util {
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
-	private static final String REPOSITORY_NAME_PATTERN = "[a-zA-Z0-9_\\.-]";
-
 	public static String getFileContent(String resourceFilePath) throws FileNotFoundException {
 		File file = getFile(resourceFilePath);
 
@@ -166,13 +164,13 @@ public class Util {
 			artifactsDownloadCountResults.sort(
 					(a1, a2) -> (a2.getStats().get(0).getDownloads()).compareTo((a1.getStats().get(0).getDownloads())));
 
-			// first pagination
-			if (artifactMostDownloaded == null && artifactsDownloadCountResults.size() > 0) {
+			// for the first pagination - check some edge cases (1 artifact)
+			if (artifactsDownloadCountResults.size() > 0) {
 				artifactMostDownloaded = artifactsDownloadCountResults.get(0);
 				if (artifactsDownloadCountResults.size() > 1) {
 					artifactRunnerUpMostDoanloaded = artifactsDownloadCountResults.get(1);
 				}
-				// second pagination
+			// second pagination - checking that results set isn't empty 
 			} else if (artifactsDownloadCountResults.size() > 0) {
 				List<ArtifactsDownloadCountResult> mostDownloaded = Util.pickGlobalMostDownloadedArtifacts(
 						(artifactsDownloadCountResults.size() > 0) ? artifactsDownloadCountResults.get(0) : null,
@@ -191,20 +189,19 @@ public class Util {
 		}
 
 		List<Record> records = new ArrayList<>();
-		Record record1 = (artifactMostDownloaded != null)
-				? new Record(
-						mavenRepositoryName.concat("/").concat(artifactMostDownloaded.getPath()).concat("/")
-								.concat(artifactMostDownloaded.getName()),
-						artifactMostDownloaded.getStats().get(0).getDownloads())
-				: null;
-		Record record2 = (artifactRunnerUpMostDoanloaded != null) ? new Record(
-				mavenRepositoryName.concat("/").concat(artifactRunnerUpMostDoanloaded.getPath()).concat("/")
-						.concat(artifactRunnerUpMostDoanloaded.getName()),
+		Record record1 = (artifactMostDownloaded != null) ? new Record(mavenRepositoryName.concat("/")
+				.concat(artifactMostDownloaded.getPath()).concat("/").concat(artifactMostDownloaded.getName()),
+				artifactMostDownloaded.getStats().get(0).getDownloads()) : null;
+		Record record2 = (artifactRunnerUpMostDoanloaded != null) ? new Record(mavenRepositoryName.concat("/")
+				.concat(artifactRunnerUpMostDoanloaded.getPath()).concat("/")
+				.concat(artifactRunnerUpMostDoanloaded.getName()),
 				artifactRunnerUpMostDoanloaded.getStats().get(0).getDownloads()) : null;
 
 		Collections.addAll(records, record1, record2);
 
-		return new ResponseEntity<>(records.stream().filter(Objects::nonNull).collect(Collectors.toList()),
+		return new ResponseEntity<>(records.stream()
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList()),
 				HttpStatus.OK);
 	}
 
@@ -226,11 +223,7 @@ public class Util {
 		headers.set("Authorization", "Basic " + userToken);
 		HttpEntity<String> entity;
 
-		if (body != null) {
-			entity = new HttpEntity<String>(body, headers);
-		} else {
-			entity = new HttpEntity<String>(headers);
-		}
+		entity = (body != null) ? new HttpEntity<>(body, headers) : new HttpEntity<>(headers);
 
 		return restClient.exchange(url, HttpMethod.POST, entity, clazz);
 	}
@@ -262,14 +255,16 @@ public class Util {
 	}
 
 	public static List<ArtifactsDownloadCountResult> pickGlobalMostDownloadedArtifacts(
-			final ArtifactsDownloadCountResult candidate1, final ArtifactsDownloadCountResult candidate2,
-			final ArtifactsDownloadCountResult topDownloaded, final ArtifactsDownloadCountResult runnerup) {
+			ArtifactsDownloadCountResult candidate1, ArtifactsDownloadCountResult candidate2,
+			ArtifactsDownloadCountResult topDownloaded, ArtifactsDownloadCountResult runnerup) {
 		List<ArtifactsDownloadCountResult> candidatesList = new ArrayList<>();
 		Collections.addAll(candidatesList, topDownloaded, runnerup, candidate1, candidate2);
 
-		List<ArtifactsDownloadCountResult> response = candidatesList.stream().filter(Objects::nonNull).sorted(
-				(a1, a2) -> (a2.getStats().get(0).getDownloads()).compareTo((a1.getStats().get(0).getDownloads())))
-				.limit(2).collect(Collectors.toList());
+		List<ArtifactsDownloadCountResult> response = candidatesList.stream()
+				.filter(Objects::nonNull)
+				.sorted( (a1, a2) -> (a2.getStats().get(0).getDownloads()).compareTo((a1.getStats().get(0).getDownloads())))
+				.limit(2)
+				.collect(Collectors.toList());
 
 		return response;
 	}
@@ -277,12 +272,6 @@ public class Util {
 	public static boolean validateIPAddress(String address) {
 		Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
 		Matcher matcher = pattern.matcher(address);
-		return matcher.matches();
-	}
-
-	public static boolean validateRepositoryName(String repoName) {
-		Pattern pattern = Pattern.compile(REPOSITORY_NAME_PATTERN);
-		Matcher matcher = pattern.matcher(repoName);
 		return matcher.matches();
 	}
 
