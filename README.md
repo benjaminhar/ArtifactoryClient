@@ -1,7 +1,7 @@
 An <a href="https://jfrog.com/artifactory/" rel="nofollow">Artifactory</a> client that finds the most downloaded artifacts on a Maven repository.
 
 The client is packaged as a Rest web service that will return the most downloaded artifacts on a Maven repository. 
-Behind the scenes the web service has a rest client that calls Artifactory's Rest apis to find download statistics on stored Maven artifacts. The client is using the <a href="https://www.jfrog.com/confluence/display/RTF/Artifactory+Query+Language" rel="nofollow">Artifactory AQL</a> to extract the necessary data.
+Behind the scenes, the web service collects its data by calling Artifactory's Rest apis to find the artifacts metadata and download statistics. The client is using the <a href="https://www.jfrog.com/confluence/display/RTF/Artifactory+Query+Language" rel="nofollow">Artifactory AQL</a> to extract the necessary data.
 
 This is a Java project which is using Maven for packaging and Spring Boot to expose the web services and also quering Artifactory. The project can be packaged with Maven as a war file using Maven's 'mvn clean package' command.
 
