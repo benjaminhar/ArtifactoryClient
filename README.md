@@ -14,7 +14,7 @@ Where:</br>
 <b>host</b> - is the host where we deploy our solution.</br>
 <b>port</b> - the container port, normally port 8080.</br>
 <b>contextPath</b> - the web application's context path. Will be usually the war name or it's alias name. For example, on Tomcat the context path can be defined on the server.xml file.</br>
-<b>targetHost</b> - (optional query param) the target Artifactory instance ip on which we query.</br>
+<b>targetHost</b> - (optional query param) the target Artifactory instance ip address on which we query.</br>
 <b>mavenRepositoryName</b> - (optional query param) the target Maven repository name on the given Artifactory instace that we want to query.</br>
 <b>limit</b> - (optional query param) pagination limit to match the limit when submitting a call to the Artifactory instance. The defualt value is 1000.</br></br>
 The query params targetHost, mavenRepositoryName and limit are optional and their default values can be configured at the <b>src/main/resources/config/AppConfig.json</b> application configuration file.
