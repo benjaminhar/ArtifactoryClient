@@ -32,12 +32,7 @@ public class DownloadsCountController {
 	 * @param targetHost
 	 * @param mavenRepositoryName
 	 * @param limit
-	 * @return
-	 * @throws FileNotFoundException
-	 * @throws JsonParseException
-	 * @throws JsonMappingException
-	 * @throws IOException
-	 * @throws InterruptedException
+	 * @return response entity with the most downloaed artifacts on a maven repository
 	 */
 	@RequestMapping("/mostdownloaded")
 	public ResponseEntity<List<Record>> findMostDownloadedArtifacts(

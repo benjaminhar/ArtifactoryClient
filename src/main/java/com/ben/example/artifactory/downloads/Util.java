@@ -30,23 +30,18 @@ import com.ben.example.artifactory.downloads.domain.ArtifactsDownloadCountResult
 import com.ben.example.artifactory.downloads.domain.Record;
 import com.ben.example.artifactory.downloads.domain.Result;
 
-/**
- *
- */
 public class Util {
 
 	private static Logger logger = Logger.getLogger(Util.class.getSimpleName());
 
 	private static AppConfig appConfig = null;
-	
+
 	private static RestTemplate restClient = new RestTemplate();
-	
-	private static final String IPADDRESS_PATTERN = 
-			"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
-	
+
+	private static final String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+
 	private static final String REPOSITORY_NAME_PATTERN = "[a-zA-Z0-9_\\.-]";
 
 	public static String getFileContent(String resourceFilePath) throws FileNotFoundException {
@@ -83,8 +78,8 @@ public class Util {
 	 * @return string in json format to represent the input artifact in the
 	 *         query
 	 */
-	public static String generateQuerySegmentForArtifact(final String artifactName, final String artifactPath, int index,
-			int pagingLimit) {
+	public static String generateQuerySegmentForArtifact(final String artifactName, final String artifactPath,
+			int index, int pagingLimit) {
 		String queryPartTemplate = "{   \"$and\":[   {\"name\":{\"$eq\":\"" + artifactName + "\"}},"
 				+ "   {\"path\":{\"$eq\":\"" + artifactPath + "\"}} ] },";
 		if (index == pagingLimit) {
@@ -116,7 +111,7 @@ public class Util {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public static ResponseEntity<List<Record>> getMostDownloadedArtifacts (String endpoint,
+	public static ResponseEntity<List<Record>> getMostDownloadedArtifacts(String endpoint,
 			final String mavenRepositoryName, int paginationLimit) throws FileNotFoundException {
 
 		String getArtifactsByPageRequestTemplate = Util.getFileContent("aql/get-artifacts-by-page.txt");
@@ -135,9 +130,8 @@ public class Util {
 
 		while (!isPaginationFinished) {
 			String getArtifactsByPageWithValues = StringUtils.replaceEach(getArtifactsByPageRequestTemplate,
-					new String[] { "REPO_NAME", "PAGE_SIZE", "OFFSET" }, 
-					new String[] { mavenRepositoryName, String.valueOf(paginationLimit), 
-							String.valueOf(offset + iterations * paginationLimit) });
+					new String[] { "REPO_NAME", "PAGE_SIZE", "OFFSET" }, new String[] { mavenRepositoryName,
+							String.valueOf(paginationLimit), String.valueOf(offset + iterations * paginationLimit) });
 
 			ResponseEntity<AQLGetArtifactsResult> postResponse = (ResponseEntity<AQLGetArtifactsResult>) Util.post(
 					restClient, endpoint, getArtifactsByPageWithValues, MediaType.APPLICATION_JSON,
@@ -178,7 +172,7 @@ public class Util {
 				if (artifactsDownloadCountResults.size() > 1) {
 					artifactRunnerUpMostDoanloaded = artifactsDownloadCountResults.get(1);
 				}
-			// second pagination
+				// second pagination
 			} else if (artifactsDownloadCountResults.size() > 0) {
 				List<ArtifactsDownloadCountResult> mostDownloaded = Util.pickGlobalMostDownloadedArtifacts(
 						(artifactsDownloadCountResults.size() > 0) ? artifactsDownloadCountResults.get(0) : null,
@@ -209,11 +203,11 @@ public class Util {
 				artifactRunnerUpMostDoanloaded.getStats().get(0).getDownloads()) : null;
 
 		Collections.addAll(records, record1, record2);
-		
+
 		return new ResponseEntity<>(records.stream().filter(Objects::nonNull).collect(Collectors.toList()),
 				HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Generating a POST request using Spring's RestTemplate client
 	 * 
@@ -279,24 +273,24 @@ public class Util {
 
 		return response;
 	}
-	
+
 	public static boolean validateIPAddress(String address) {
 		Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
 		Matcher matcher = pattern.matcher(address);
-		return matcher.matches();	
+		return matcher.matches();
 	}
-	
+
 	public static boolean validateRepositoryName(String repoName) {
 		Pattern pattern = Pattern.compile(REPOSITORY_NAME_PATTERN);
 		Matcher matcher = pattern.matcher(repoName);
-		return matcher.matches();	
+		return matcher.matches();
 	}
 
 	private static File getFile(String resourceFilePath) {
 		ClassLoader classLoader = Util.class.getClassLoader();
 		URL url = classLoader.getResource(resourceFilePath);
 		File file = (url != null) ? new File(url.getFile()) : null;
-		
+
 		return file;
 	}
 
